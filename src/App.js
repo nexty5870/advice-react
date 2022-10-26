@@ -1,25 +1,42 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      DataisLoaded: false,
+      items: {}
+    };
+  }
 
-function App() {
+  componentDidMount() {
+    fetch("https://api.adviceslip.com/advice")
+    .then((res) => res.json())
+    .then((json) => {
+      this.setState({
+        items: json,
+        DataisLoaded: true
+      });
+    })
+  }
+
+render() {
+  const { DataisLoaded, items } = this.state;
+  if (!DataisLoaded) return <div>
+    <h1>Please wait while loading meta data...</h1></div>;
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className= "App">
+      <h1>Fetching data from API</h1> {
+          Object.values(items).map((item) => (
+          <ol key = { item.id } >
+            Advice: { item.advice }
+          </ol>
+        ))
+      }
     </div>
   );
+}
 }
 
 export default App;
