@@ -4,7 +4,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      DataisLoaded: false,
+      DataIsLoaded: false,
       items: {}
     };
   }
@@ -15,14 +15,14 @@ class App extends React.Component {
     .then((json) => {
       this.setState({
         items: json,
-        DataisLoaded: true
+        DataIsLoaded: true
       });
     })
   }
 
 render() {
-  const { DataisLoaded, items } = this.state;
-  if (!DataisLoaded) return <div>
+  const { DataIsLoaded, items } = this.state;
+  if (!DataIsLoaded) return <div>
     <h1>Please wait while loading meta data...</h1></div>;
   
   return (
